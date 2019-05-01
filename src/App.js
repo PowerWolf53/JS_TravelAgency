@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-function App() {
+import { Header, Footer, Registrate, Login } from "./components";
+
+import { ToursCatalogDashboard } from "./routes";
+
+import {
+  TOURS_CATALOG_DASHBOARD_ROUTE,
+  REGISTRATE_ROUTE,
+  LOGIN_ROUTE
+} from "./constants/routes";
+
+const routes = [
+  {
+    path: TOURS_CATALOG_DASHBOARD_ROUTE,
+    exact: true,
+    component: ToursCatalogDashboard
+  },
+  {
+    path: REGISTRATE_ROUTE,
+    exact: true,
+    component: Registrate
+  },
+  {
+    path: LOGIN_ROUTE,
+    exact: true,
+    component: Login
+  }
+];
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <Switch>
+        {routes.map(({ path, ...rest }) => {
+          return <Route key={path} path={path} {...rest} />;
+        })}
+      </Switch>
+      <Footer />
+    </>
   );
-}
+};
 
 export default App;
